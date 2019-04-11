@@ -64,3 +64,4 @@ plt.xlim(0,24)
 
 f1.tight_layout()
 f1.show()
+plt.show()
