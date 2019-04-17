@@ -1,4 +1,12 @@
-* Please enter the following values with the system parameters with the same format. *
+* Please enter the following values with the system parameters with the same format.
+* date: DD/MM/YYYY
+* lat: degrees
+* long_loc: degrees
+* gamma: degrees
+* beta: degrees
+* area_panel: square meters
+* n_panles: integer
+* eff: decimal percent
 
 date: 03/26/2019
 lat: 30.2672
