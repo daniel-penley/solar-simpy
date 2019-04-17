@@ -34,6 +34,14 @@ day = pd.to_datetime(date, format='%m/%d/%Y')
 new_year_day = pd.Timestamp(year=day.year, month=1, day=1)
 date = (day - new_year_day).days + 1
 
+# Actual Data
+df = pd.read_csv('data.csv')
+actual = []
+for x in range(0, len(df.index)):
+    if df.loc[x, 'Solar [kW]']<0:
+        df.at[x, 'Solar [kW]'] = 0
+    actual.append(df.loc[x, 'Solar [kW]'])
+
 irradiance_std, power_std = power.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff)
 irradiance_std = np.array(irradiance_std)
 scaled_power_std = np.array(power_std) / 1000
