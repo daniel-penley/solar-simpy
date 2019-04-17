@@ -6,18 +6,33 @@ import numpy as np
 # print(np.__file__)
 import renew as rn
 import power
+#import matplotlib
 import matplotlib.pyplot as plt
+import pandas as pd
+
 
 plt.rcParams.update({'font.size': 16})
 
-lat = 30.2672
-long_std = 90
-long_loc = 97.7431
-beta =22
-gamma = 46
-area_panel = 1.6236 # m^2
-n_panels = 960
-eff = 0.157
+constants = {}
+with open("CONFIG.txt") as config:
+    for line in config:
+        if line[0]=='*' or line == '\n':
+            continue
+        else:
+            (key, val) = line.rstrip().split(': ')
+            if key == 'date':
+                constants[key] = val
+            else:
+                constants[key] = float(val)
+locals().update(constants)
+std_long = [x * 15 for x in range(0, 24)]
+for num in std_long:
+    if long_loc>=num and long_loc<num:
+        long_std = std_long
+        
+day = pd.to_datetime(date, format='%m/%d/%Y')
+new_year_day = pd.Timestamp(year=day.year, month=1, day=1)
+date = (day - new_year_day).days + 1
 
 irradiance_std, power_std = power.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff)
 irradiance_std = np.array(irradiance_std)
