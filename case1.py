@@ -27,8 +27,8 @@ with open("CONFIG.txt") as config:
 locals().update(constants)
 std_long = [x * 15 for x in range(0, 24)]
 for num in std_long:
-    if long_loc>=num and long_loc<num:
-        long_std = std_long
+    if long_loc>=num and long_loc<num+15:
+        long_std = num
         
 day = pd.to_datetime(date, format='%m/%d/%Y')
 new_year_day = pd.Timestamp(year=day.year, month=1, day=1)
