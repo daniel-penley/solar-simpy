@@ -1,9 +1,10 @@
-(Example Placeholder, needs to be redone)
+* Please enter the following values with the system parameters with the same format. *
 
-Constants:
-
-Date: 
-Latitude:
-Longitude:
-Gamma: 
-Beta: 
+date: 03/26/2019
+lat: 30.2672
+long_loc: 97.7431
+gamma: 46
+beta: 22
+area_panel: 1.6236
+n_panels: 960
+eff: 0.157
