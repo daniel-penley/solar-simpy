@@ -1,0 +1,9 @@
+(Example Placeholder, needs to be redone)
+
+Constants:
+
+Date: 
+Latitude:
+Longitude:
+Gamma: 
+Beta: 
