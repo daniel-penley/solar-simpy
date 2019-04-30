@@ -4,8 +4,9 @@
 import math as m
 import numpy as np
 import renew as rn
+import CloudOpacity
 
-def YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff):
+def YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff, inv_eff):
 	#Figure 1: Irradiance for Austin and Total System Power Delivery vs Time of Day, Sunny Day, Dec. 21
 	irradiance = []
 	power = []
@@ -15,7 +16,9 @@ def YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff)
 		delta = rn.Declination(N)
 		irradiance.append([])
 		power.append([])
+#        OCI = CloudOpacity()
 		for time in range(0,24*12+1):
+#            oci = OCI[time/12]
 			solar_time = rn.LocalToSolarTime(time/12, long_std, long_loc, N)
 			# print('solar time:', solar_time)
 			omega = rn.HourAngle(solar_time)
@@ -60,7 +63,7 @@ def YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff)
 				irradiance[N-1].append(0)
 			else:
 				irradiance[N-1].append(I_c_b + I_c_d)
-			power[N-1].append(irradiance[N-1][time]*eff*area_panel*n_panels)
+			power[N-1].append(irradiance[N-1][time]*eff*area_panel*n_panels*inv_eff)
 
 			gamma_s_old = gamma_s
 		# print(irradiance[N-1])
