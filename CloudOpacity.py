@@ -1,14 +1,15 @@
 import random
 import simpy
 
-wait_time = []
+cloud_count = []
 
 RANDOM_SEED = 12
 NUM_SLOTS = 10  # Number of "slots" for a cloud
-LIFETIME = random.randint(10,40)    # Minutes the cloud lasts for
-T_INTER = 5       # Create a car every ~7 minutes
-SIM_TIME = 1440     # Simulation time in minutes
-
+LIFETIME = random.randint(10,30)    # Minutes the cloud lasts for
+T_INTER = 5       # Create a cloud every ~5 minutes
+SIM_TIME = 1440     # Simulation time in minutes, min per day
+cloudList = []
+cloudCount = []
 
 class CloudModel(object):
     """A carwash has a limited number of machines (``NUM_MACHINES``) to
@@ -28,7 +29,7 @@ class CloudModel(object):
         """The washing processes. It takes a ``car`` processes and tries
         to clean it."""
         yield self.env.timeout(LIFETIME)
-        print("%s is no longer over head at %.2f." % (cloud, env.now))
+        #print("%s is no longer over head at %.2f." % (cloud, env.now))
 
 
 def cloud(env, name, cw):
@@ -39,33 +40,39 @@ def cloud(env, name, cw):
     leaves to never come back ...
 
     """
-    print('%s arrives in the sky at %.2f.' % (name, env.now))
+
+    # print('%s arrives in the sky at %.2f.' % (name, env.now))
     with cw.machine.request() as request:
-        start_waiting = env.now
         yield request
-        waiting_time = env.now-start_waiting
-        wait_time.append(waiting_time)
-        print('%s blocks the sun at %.2f.' % (name, env.now))
+        cloud_count.append(len(cloudList))
+        # print('%s blocks the sun at %.2f.' % (name, env.now))
+        cloudList.append(name)
         yield env.process(cw.wash(name))
 
-        print('%s is no longer in the sky at %.2f.' % (name, env.now))
+        # print('%s is no longer in the sky at %.2f.' % (name, env.now))
+        cloudList.remove(name)
 
 
 def setup(env, num_machines, washtime, t_inter):
-    """Create a carwash, a number of initial cars and keep creating cars
+    """Create a sky, a number of initial clouds and keep creating clouds
     approx. every ``t_inter`` minutes."""
     # Create the cloudmodel
     cloudmodel = CloudModel(env, num_machines, washtime)
 
-    # Create 4 initial people
+    start_time = env.now
+
+    # Create 4 initial clouds
     for i in range(4):
         env.process(cloud(env, 'Cloud %d' % i, cloudmodel))
 
-    # Create more cars while the simulation is running
+    # Create more clouds while the simulation is running
     while True:
-        yield env.timeout(random.randint(t_inter - 2, t_inter + 2))
+        yield env.timeout(random.randint(t_inter-4, t_inter+4))
         i += 1
         env.process(cloud(env, 'Cloud %d' % i, cloudmodel))
+
+        print ((cloudList))
+        cloudCount.append(len(cloudList))
 
 
 # Setup and start the simulation
@@ -78,4 +85,10 @@ env.process(setup(env, NUM_SLOTS, LIFETIME, T_INTER))
 # Execute!
 env.run(until=SIM_TIME)
 print()
-print('The average wait time was ' + str(round(sum(wait_time)/len(wait_time),3)) + ' minutes.')
+print('The average cloud count was ' + str(round(sum(cloud_count)/len(cloud_count),3)) + ' clouds.')
+
+def cloudOpacity():
+	return (cloudCount)
+
+print (len(cloudOpacity()))
+print (cloudOpacity())
