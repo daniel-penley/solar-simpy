@@ -5,7 +5,7 @@ cloud_count = []
 
 RANDOM_SEED = 12
 NUM_SLOTS = 10  # Number of "slots" for a cloud
-LIFETIME = random.randint(10,30)    # Minutes the cloud lasts for
+LIFETIME = random.randint(10,30)    # Minutes the for which cloud lasts
 T_INTER = 5       # Create a cloud every ~5 minutes
 SIM_TIME = 1440     # Simulation time in minutes, min per day
 cloudList = []
@@ -14,11 +14,9 @@ cloudCount = []
 class CloudModel(object):
     """A carwash has a limited number of machines (``NUM_MACHINES``) to
     clean cars in parallel.
-
     Cars have to request one of the machines. When they got one, they
     can start the washing processes and wait for it to finish (which
     takes ``washtime`` minutes).
-
     """
     def __init__(self, env, num_slots, lifetime):
         self.env = env
@@ -35,10 +33,8 @@ class CloudModel(object):
 def cloud(env, name, cw):
     """The car process (each car has a ``name``) arrives at the carwash
     (``cw``) and requests a cleaning machine.
-
     It then starts the washing process, waits for it to finish and
     leaves to never come back ...
-
     """
 
     # print('%s arrives in the sky at %.2f.' % (name, env.now))
@@ -88,7 +84,10 @@ print()
 print('The average cloud count was ' + str(round(sum(cloud_count)/len(cloud_count),3)) + ' clouds.')
 
 def cloudOpacity():
-	return (cloudCount)
-
-print (len(cloudOpacity()))
-print (cloudOpacity())
+    if len(cloudCount) > 289:
+        del cloudCount[290:]
+    elif len(cloudCount) < 289:
+        while len(cloudCount) < 289:
+            cloudCount.append(1)
+            
+    return (cloudCount)
