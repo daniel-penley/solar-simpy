@@ -52,24 +52,24 @@ X = []
 for hour in range(0,24*12+1):
 	X.append(hour/12)
 
-f2 = plt.figure()
-ax2 = plt.subplot(111)
+f1 = plt.figure()
+ax1 = plt.subplot(111)
 
 # Plots the Power values for the selected date. 
-ax2.plot(X, scaled_clear_power[date], color='C0', linewidth=3, label='Clear Model')
-ax2.plot(X, scaled_power[date], color='C1', linewidth=3, label='Cloud Model')
-ax2.plot(X, actual, linewidth=3, color='C2', label='Actual Data')
-ax2.set_ylabel('Power [kW]', fontsize=30)
-ax2.tick_params(axis='y')
-ax2.set_ylim((0,250))
-ax2.legend(loc='upper right')
-ax2.grid()
-ax2.set_xlabel('Local Time [hours]', fontsize=30)
+ax1.plot(X, scaled_clear_power[date], color='C0', linewidth=3, label='Clear Model')
+ax1.plot(X, scaled_power[date], color='C1', linewidth=3, label='Cloud Model')
+ax1.plot(X, actual, linewidth=3, color='C2', label='Actual Data')
+ax1.set_ylabel('Power [kW]', fontsize=30)
+ax1.tick_params(axis='y')
+ax1.set_ylim((0,250))
+ax1.legend(loc='upper right')
+ax1.grid()
+ax1.set_xlabel('Local Time [hours]', fontsize=30)
 
 plt.tick_params(axis = 'x')
 plt.title('Power vs Time - '+name, fontsize=30)
 plt.xlim(0,24)
 
-f2.tight_layout()
-f2.show()
+f1.tight_layout()
+f1.show()
 plt.show()
