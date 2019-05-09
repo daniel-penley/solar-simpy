@@ -4,7 +4,7 @@ import power
 import matplotlib.pyplot as plt
 import pandas as pd
 
-plt.rcParams.update({'font.size': 16})
+plt.rcParams.update({'font.size': 24})
 
 # Reads the configure file to create and set the needed variables
 constants = {}
@@ -32,7 +32,7 @@ day = pd.to_datetime(date, format='%m/%d/%Y')
 new_year_day = pd.Timestamp(year=day.year, month=1, day=1)
 date = (day - new_year_day).days + 1
 
-# Reads and saves the Actual Data from the selected date.
+# Reads and saves the Actual Power Data from the selected date.
 df = pd.read_csv(filename)
 actual = []
 for x in range(0, len(df.index)):
@@ -47,39 +47,29 @@ scaled_clear_power = np.array(clear_power) / 1000
 irradiance = np.array(irradiance)
 scaled_power = np.array(power) / 1000
 
-# Creates the time vector to plot against
+# Creates the time vector to plot against for one day
 X = []
 for hour in range(0,24*12+1):
 	X.append(hour/12)
 
-f1 = plt.figure()
-ax1 = plt.subplot(111)
-
-# Plots the Irradiance values for the selected date.
-ax1.plot(X, clear_irradiance[date], color='C0', linewidth=3, label=name+' - CLEAR MODEL')
-ax1.plot(X, irradiance[date], color='C2', linewidth=3, label=name+'- MODEL')
-ax1.set_xlabel('Local Time [hours]', fontsize=18)
-ax1.set_ylabel('Irradiance [W/m^2]', color=color, fontsize=18)
-ax1.tick_params(axis='y', labelcolor=color)
-ax1.set_ylim((0,1000))
-ax1.legend(loc='upper left')
-ax1.grid()
-
-ax2 = ax1.twinx()
+f2 = plt.figure()
+ax2 = plt.subplot(111)
 
 # Plots the Power values for the selected date. 
-ax2.plot(X, scaled_clear_power[date], color='C1', linewidth=3, label=name+' - CLEAR MODEL')
-ax2.plot(X, scaled_power[date], color='C3', linewidth=3, label=name+'- MODEL')
-ax2.plot(X, actual, linewidth=3, color='C4', label=name+'- Actual Data')
-ax2.set_ylabel('Power [kW]', color=color, fontsize=18)
-ax2.tick_params(axis='y', labelcolor=color)
+ax2.plot(X, scaled_clear_power[date], color='C0', linewidth=3, label='Clear Model')
+ax2.plot(X, scaled_power[date], color='C1', linewidth=3, label='Cloud Model')
+ax2.plot(X, actual, linewidth=3, color='C2', label='Actual Data')
+ax2.set_ylabel('Power [kW]', fontsize=30)
+ax2.tick_params(axis='y')
 ax2.set_ylim((0,250))
 ax2.legend(loc='upper right')
+ax2.grid()
+ax2.set_xlabel('Local Time [hours]', fontsize=30)
 
 plt.tick_params(axis = 'x')
-plt.title('Irradiance and Power vs Time', fontsize=20)
+plt.title('Power vs Time - '+name, fontsize=30)
 plt.xlim(0,24)
 
-f1.tight_layout()
-f1.show()
+f2.tight_layout()
+f2.show()
 plt.show()
