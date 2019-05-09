@@ -61,9 +61,6 @@ def setup(env, num_slots, lifetime, t_inter):
 
         cloudCount.append(len(cloudList))
 
-# Setup and start the simulation
-#random.seed(RANDOM_SEED) # This helps reproducing the results
-
 # Create an environment and start the setup process
 env = simpy.Environment()
 env.process(setup(env, NUM_SLOTS, LIFETIME, T_INTER))
