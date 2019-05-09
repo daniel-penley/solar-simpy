@@ -41,14 +41,16 @@ for x in range(0, len(df.index)):
         df.at[x, 'Solar [kW]'] = 0
     actual.insert(0, df.loc[x, 'Solar [kW]'])
 
-irradiance_std, power_std = power.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff, inv_eff)
-irradiance_std = np.array(irradiance_std)
-scaled_power_std = np.array(power_std) / 1000
+clear_irradiance, clear_power, irradiance, power = power.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff, inv_eff)
+clear_irradiance = np.array(clear_irradiance)
+scaled_clear_power = np.array(clear_power) / 1000
+irradiance = np.array(irradiance)
+scaled_power = np.array(power) / 1000
 
-gamma = 0
-irradiance_gamma0, power_gamma0 = power.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff, inv_eff)
-irradiance_gamma0 = np.array(irradiance_gamma0)
-scaled_power_gamma0 = np.array(power_gamma0) / 1000
+#gamma = 0
+#irradiance_gamma0, power_gamma0 = power.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff, inv_eff)
+#irradiance_gamma0 = np.array(irradiance_gamma0)
+#scaled_power_gamma0 = np.array(power_gamma0) / 1000
 
 X = []
 for hour in range(0,24*12+1):
@@ -59,7 +61,8 @@ ax1 = plt.subplot(111)
 
 #Irradiance
 color = 'tab:blue'
-ax1.plot(X, irradiance_std[rn.DayOfTheYear('3/26')-1], color=color, linewidth=3, label='Mar. 26')
+ax1.plot(X, clear_irradiance[rn.DayOfTheYear('3/26')-1], color=color, linewidth=3, label='Mar. 26 - CLEAR')
+ax1.plot(X, irradiance[rn.DayOfTheYear('3/26')-1], color='green', linewidth=3, label='Mar. 26')
 ax1.set_xlabel('Local Time [hours]', fontsize=18)
 ax1.set_ylabel('Irradiance [W/m^2]', color=color, fontsize=18)
 ax1.tick_params(axis='y', labelcolor=color)
@@ -71,8 +74,9 @@ ax2 = ax1.twinx()
 
 #Power
 color = 'tab:red'
-ax2.plot(X, scaled_power_std[rn.DayOfTheYear('3/26')-1], color=color, linestyle='--', linewidth=3, label='Mar. 26, $\gamma$=46')
-ax2.plot(X, actual, color=color, linestyle='-', linewidth=3, label='Actual Data')
+ax2.plot(X, scaled_clear_power[rn.DayOfTheYear('3/26')-1], color=color, linewidth=3, label='Mar. 26 - CLEAR')
+ax2.plot(X, scaled_power[rn.DayOfTheYear('3/26')-1], color='yellow', linewidth=3, label='Mar. 26')
+ax2.plot(X, actual, color='cyan', linewidth=3, label='Actual Data')
 ax2.set_ylabel('Power [kW]', color=color, fontsize=18)
 ax2.tick_params(axis='y', labelcolor=color)
 ax2.set_ylim((0,250))
