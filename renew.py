@@ -193,9 +193,9 @@ def I_Beta_b(I_n_b, theta_i):
     theta_i_radians = m.radians(theta_i)
     return I_n_b*m.cos(theta_i_radians)/2/m.pi*360
 
-def BeamTransmissivity(theta_z, N, A=0.149):
+def ClearBeamTransmissivity(theta_z, N, A=0.149):
     """
-    This function finds the beam transmissivity, tau_b
+    This function finds the clear day beam transmissivity, tau_c_b
     Input theta_z in degrees
     N is the day of the year
     A is the altitude in km (defualts to 0.149 for Austin, TX)
@@ -242,9 +242,16 @@ def BeamTransmissivity(theta_z, N, A=0.149):
 
     return a_0 + a_1*m.e**(-k/m.cos(theta_z_radians))
 
-def I_c_b(I_0, tau_b, theta_i):
+def BeamTransmissivity(tau_c_b, oci):
     """
-    This function finds the clear-day beam Insolation in W/m^2
+    This function finds the beam transmissivity, tau_b
+    Input tau_c_b and OCI number
+    """
+    return tau_c_b*(1-(oci/10))
+
+def I_b(I_0, tau_b, theta_i):
+    """
+    This function finds the beam Insolation in W/m^2
     Input theta_i in degrees
     This works for flat and tilted panels (beta > 0)
     """
@@ -257,9 +264,9 @@ def DiffuseTransmissivity(tau_b):
     """
     return 0.271 - 0.294*tau_b
 
-def I_c_d(tau_d, I_0, theta_z, beta):
+def I_d(tau_d, I_0, theta_z, beta):
     """
-    This function find the clear-day diffuse insolation in W/m^2
+    This function find the diffuse insolation in W/m^2
     Input theta_z in degrees
     Input beta as radians
     """
