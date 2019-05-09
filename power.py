@@ -10,7 +10,6 @@ def YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff,
     irradiance = []
     power = []
     for N in range(1,366):
-        # print('day:', N)
         I_0 = rn.I_0(N)
         delta = rn.Declination(N)
         clear_irradiance.append([])
@@ -53,7 +52,7 @@ def YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff,
                 I_b = rn.I_b(I_0, tau_b, theta_i)
                 
             I_c_d = rn.I_d(tau_c_d, I_0, theta_z, beta)
-            I_d = rn.I_d(tau_c_d, I_0, theta_z, beta)
+            I_d = rn.I_d(tau_d, I_0, theta_z, beta)
 
             if alpha < 0:
                 clear_irradiance[N-1].append(0)
