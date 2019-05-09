@@ -1,6 +1,6 @@
 # solar-simpy
 
-This repository contains four main Python codes. renew.py, power.py, and CloudOpacity.py are all used as imported libraries in the main file, main.py. It also contains a CONFIG.txt file, which allows the user to alter the date, location, and factors regarding the physical solar panels. 
+This repository contains four main Python codes. renew.py, power.py, and CloudOpacity.py are all used as imported libraries in the main file, main.py. It also contains a CONFIG.txt file, which allows the user to alter the date, location, and factors regarding the solar panels and their position and location.
 
 renew.py defines a number of functions that establish the renewable energy parameters based on inputs such as latitude, longtitude, and time. 
 
