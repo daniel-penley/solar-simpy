@@ -1,6 +1,6 @@
 # solar-simpy
 
-This repository contains four main Python codes. renew.py, power.py, and CloudOpacity.py are all used as imported libraries in the main file, case1.py. It also contains a CONFIG.txt file, which allows the user to alter the date, location, and factors regarding the physical solar panels. 
+This repository contains four main Python codes. renew.py, power.py, and CloudOpacity.py are all used as imported libraries in the main file, main.py. It also contains a CONFIG.txt file, which allows the user to alter the date, location, and factors regarding the physical solar panels. 
 
 renew.py defines a number of functions that establish the renewable energy parameters based on inputs such as latitude, longtitude, and time. 
 
@@ -8,4 +8,4 @@ power.py calculates the yearly solar power generated, based on the renewable ene
 
 CloudOpacity.py creates a CloudModel object, which uses SimPy to simulate clouds entering and leaving the sky, which affects the power generated. The output of CloudOpacity.py is the number of clouds currently in the sky, which power.py incorporates as a variable when calculating the yearly power generated.
 
-case1.py pulls in the desired variables from the CONFIG.txt file and imports renew.py, power.py, and CloudOpacity.py. Running this code produces a graph of the solar irradiance and power for a day. 
+main.py pulls in the desired variables from the CONFIG.txt file and imports renew.py, power.py, and CloudOpacity.py. Running this code produces a graph of the solar irradiance and power for a day. 
