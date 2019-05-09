@@ -1,4 +1,7 @@
-# solar-simpy
+Team SimPy: Final Project
+Date: Spring 2019
+
+This is our final project for the ME369P: Applications Programming for Engineers course at The University of Texas at Austin. The goal of the project is to model the solar power generated for a given date, location, and solar panel physical parameters, incorporating random cloud coverage using the SimPy Python package.
 
 This repository contains four main Python codes. renew.py, power.py, and CloudOpacity.py are all used as imported libraries in the main file, main.py. It also contains a CONFIG.txt file, which allows the user to alter the date, location, and factors regarding the solar panels and their position and location.
 
