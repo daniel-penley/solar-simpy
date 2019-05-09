@@ -16,14 +16,15 @@ gamma = 46
 area_panel = 1.6236 # m^2
 n_panels = 960
 eff = 0.157
+inv_eff = 0.965
 
 ########## BEGIN Bullets 1, 2, & 3 ##########
-irradiance, power, irradiance_ratio_horiz, theta_i_array = pwr.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff)
+irradiance, power, irradiance_ratio_horiz, theta_i_array = pwr.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff, inv_eff)
 irradiance = np.array(irradiance)
 scaled_power = np.array(power) / 1000
 
 gamma = 0
-irradiance_gamma0, power_gamma0, irradiance_ratio_horiz_gamma0, theta_i_array_gamma0 = pwr.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff)
+irradiance_gamma0, power_gamma0, irradiance_ratio_horiz_gamma0, theta_i_array_gamma0 = pwr.YearlyPower(lat, long_std, long_loc, beta, gamma, area_panel, n_panels, eff, inv_eff)
 irradiance_gamma0 = np.array(irradiance_gamma0)
 scaled_power_gamma0 = np.array(power_gamma0) / 1000
 

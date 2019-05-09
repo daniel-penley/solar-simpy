@@ -42,6 +42,16 @@ def DayOfTheYear(date):
     days_in_months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     return sum(days_in_months[0:date[0]-1]) + date[1]
 
+def dateToWords(date):
+    """
+    This function converts a date fronm a 'mm/dd' format to a 'Month dd' format
+    Intended for use on labels for plots
+    """
+    date = date.split('/')
+    month_words = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug', 'Sep.', 'Oct.', 'Nov.', 'Dec.']
+
+    return month_words[int(date[0])-1] + ' ' + date[1]
+
 def I_0(N):
     """
     This function calculate the daily solar constant as a function of the the day of the year
